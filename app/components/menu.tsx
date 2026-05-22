@@ -1,56 +1,143 @@
-import Image from "next/image";
-import { site, type MenuItem } from "@/content/site";
+"use client";
 
-function MenuRow({ item }: { item: MenuItem }) {
+import Image from "next/image";
+import { useMemo, useState } from "react";
+import { site, menuItems, menuCategories, type MenuItem, type MenuCategoryId } from "@/content/site";
+
+type Filter = MenuCategoryId | "all";
+
+function MenuCard({ item }: { item: MenuItem }) {
   return (
-    <li className="group flex items-baseline py-4 border-b border-char/10 hover:bg-parchment-deep/40 -mx-3 px-3 transition-colors">
-      <div className="flex-1 min-w-0">
-        <div className="flex items-baseline gap-2 flex-wrap">
-          <h4 className="display text-[1.4rem] md:text-[1.55rem] text-char leading-tight">
-            {item.name}
-          </h4>
-          {item.spicy && (
-            <span className="eyebrow text-ember">· spicy</span>
-          )}
-        </div>
-        {item.blurb && (
-          <p className="mt-1 text-[0.92rem] text-char-soft leading-relaxed">
-            {item.blurb}
-          </p>
+    <article className="group flex flex-col bg-parchment border border-char/10 hover:border-ember/40 transition-colors duration-300">
+      <div className="relative aspect-4/3 overflow-hidden">
+        <Image
+          src={item.image}
+          alt={item.name}
+          fill
+          sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 100vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        {item.badges && item.badges.length > 0 && (
+          <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 max-w-[80%]">
+            {item.badges.map((b) => (
+              <span
+                key={b}
+                className="eyebrow bg-parchment text-char px-2 py-1 leading-none"
+              >
+                {b}
+              </span>
+            ))}
+          </div>
+        )}
+        {item.serves && (
+          <div className="absolute bottom-3 left-3 bg-char text-parchment px-2.5 py-1.5">
+            <span className="eyebrow">{item.serves}</span>
+          </div>
         )}
       </div>
-      <div className="leader hidden sm:block" />
-      <p className="display text-[1.4rem] md:text-[1.55rem] text-ember tabular-nums">
-        ${item.price}
-      </p>
-    </li>
+
+      <div className="flex flex-col flex-1 p-5 md:p-6">
+        <div className="flex items-baseline justify-between gap-3">
+          <h3 className="display text-[1.4rem] md:text-[1.55rem] text-char leading-tight">
+            {item.name}
+          </h3>
+          <span className="display text-[1.4rem] md:text-[1.55rem] text-ember tabular-nums whitespace-nowrap">
+            ${item.price}
+          </span>
+        </div>
+
+        <p className="mt-3 text-[0.92rem] leading-relaxed text-char-soft">
+          {item.description}
+        </p>
+
+        {item.ingredients && (
+          <div className="mt-5 pt-4 border-t border-char/10">
+            <p className="eyebrow text-char-soft mb-2">Ingredients</p>
+            <p className="text-[0.85rem] leading-relaxed text-char-soft/90">
+              {item.ingredients}
+            </p>
+          </div>
+        )}
+      </div>
+    </article>
+  );
+}
+
+function FilterPill({
+  label,
+  active,
+  count,
+  onClick,
+}: {
+  label: string;
+  active: boolean;
+  count: number;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`group inline-flex items-center gap-2 rounded-full px-5 md:px-6 py-2.5 md:py-3 text-[0.85rem] tracking-wide transition-colors duration-300 ${
+        active
+          ? "bg-char text-parchment"
+          : "bg-transparent text-char-soft hover:text-char border border-char/20 hover:border-char/40"
+      }`}
+    >
+      <span className="font-medium uppercase tracking-[0.18em] text-[0.72rem]">
+        {label}
+      </span>
+      <span
+        className={`tabular-nums text-[0.7rem] ${
+          active ? "text-parchment/60" : "text-char-soft/60"
+        }`}
+      >
+        {count}
+      </span>
+    </button>
   );
 }
 
 export function Menu() {
   const { menu, offer } = site;
+  const [filter, setFilter] = useState<Filter>("all");
+
+  const counts = useMemo(() => {
+    const c: Record<string, number> = { all: menuItems.length };
+    for (const item of menuItems) c[item.category] = (c[item.category] || 0) + 1;
+    return c;
+  }, []);
+
+  const filtered = useMemo(
+    () =>
+      filter === "all"
+        ? menuItems
+        : menuItems.filter((m) => m.category === filter),
+    [filter]
+  );
+
   return (
     <section id="menu" className="relative bg-parchment-deep py-28 md:py-36">
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
         {/* Header */}
-        <div className="grid grid-cols-12 gap-10 mb-20">
-          <div className="col-span-12 md:col-span-5">
+        <div className="grid grid-cols-12 gap-10 mb-14 md:mb-20">
+          <div className="col-span-12 md:col-span-6">
             <p className="eyebrow text-ember">{menu.eyebrow}</p>
             <h2 className="display mt-6 text-char text-[clamp(2.6rem,6vw,5.5rem)]">
               A short list,{" "}
               <span className="display-italic">done properly.</span>
             </h2>
           </div>
-          <div className="col-span-12 md:col-span-6 md:col-start-7 md:pt-6">
+          <div className="col-span-12 md:col-span-5 md:col-start-8 md:pt-8">
             <p className="text-[1.05rem] leading-[1.75] text-char-soft max-w-md">
               {menu.sub}
             </p>
           </div>
         </div>
 
-        {/* Featured "tonight's special" card */}
-        <div className="mb-24 grid grid-cols-12 gap-6 md:gap-10 items-center">
-          <div className="col-span-12 md:col-span-5 relative aspect-[4/3] overflow-hidden rounded-[2px]">
+        {/* Tonight's special — featured strip */}
+        <div className="mb-20 md:mb-24 grid grid-cols-12 gap-6 md:gap-10 items-center">
+          <div className="col-span-12 md:col-span-5 relative aspect-4/3 overflow-hidden rounded-[2px]">
             <Image
               src={offer.image}
               alt={offer.title}
@@ -68,46 +155,69 @@ export function Menu() {
               {offer.title}
             </h3>
             <p className="mt-4 text-char-soft max-w-md leading-relaxed">
-              The Chicken Leg Dinner — slow-marinated, charcoal-grilled, served
-              with seasoned rice, salad, hummus, and warm naan. The everyday
-              plate, at a price worth showing up for.
+              Slow-marinated, charcoal-grilled, served with seasoned rice,
+              salad, hummus and warm naan. The everyday plate at a price worth
+              showing up for.
             </p>
             <div className="mt-6 flex items-baseline gap-4">
               <span className="display text-4xl text-ember">${offer.price}</span>
-              <span className="text-char-soft line-through text-[0.95rem]">$13.74</span>
+              <span className="text-char-soft line-through text-[0.95rem]">
+                $13.74
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Categories */}
-        <div className="space-y-24">
-          {menu.categories.map((cat) => (
-            <div key={cat.id} className="grid grid-cols-12 gap-10">
-              {/* Sticky category header */}
-              <div className="col-span-12 md:col-span-4">
-                <div className="md:sticky md:top-32">
-                  <p className="eyebrow text-ember">{cat.kicker}</p>
-                  <h3 className="display mt-4 text-char text-[clamp(2.2rem,5vw,4rem)]">
-                    {cat.title}
-                  </h3>
-                  <div className="mt-6 flex items-center gap-3">
-                    <div className="h-px w-12 bg-char/30" />
-                    <span className="text-[0.82rem] text-char-soft tabular-nums">
-                      {cat.items.length} dishes
-                    </span>
-                  </div>
-                </div>
-              </div>
+        {/* Filter pills */}
+        <div className="sticky top-20 z-30 -mx-6 md:-mx-10 px-6 md:px-10 py-4 mb-10 backdrop-blur-md bg-parchment-deep/85 border-y border-char/10">
+          <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+            {menuCategories.map((cat) => (
+              <FilterPill
+                key={cat.id}
+                label={cat.label}
+                active={filter === cat.id}
+                count={counts[cat.id] ?? 0}
+                onClick={() => setFilter(cat.id)}
+              />
+            ))}
+          </div>
+        </div>
 
-              {/* Items list */}
-              <ul className="col-span-12 md:col-span-7 md:col-start-6">
-                {cat.items.map((item) => (
-                  <MenuRow key={item.name} item={item} />
-                ))}
-              </ul>
+        {/* Active filter heading */}
+        <div className="mb-8 md:mb-10 flex items-end justify-between gap-6 flex-wrap">
+          <h3 className="display text-char text-[clamp(1.8rem,3.5vw,2.8rem)]">
+            {filter === "all"
+              ? "Everything we serve"
+              : menuCategories.find((c) => c.id === filter)?.label}
+          </h3>
+          <p className="text-[0.85rem] text-char-soft tabular-nums">
+            Showing {filtered.length} {filtered.length === 1 ? "dish" : "dishes"}
+          </p>
+        </div>
+
+        {/* Card grid */}
+        <div
+          key={filter}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6"
+        >
+          {filtered.map((item, i) => (
+            <div
+              key={item.id}
+              className="rise"
+              style={{ animationDelay: `${Math.min(i * 0.04, 0.6)}s` }}
+            >
+              <MenuCard item={item} />
             </div>
           ))}
         </div>
+
+        {filtered.length === 0 && (
+          <div className="py-20 text-center">
+            <p className="display-italic text-char-soft text-2xl">
+              Nothing in this category yet.
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );

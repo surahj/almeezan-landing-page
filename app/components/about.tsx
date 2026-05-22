@@ -8,7 +8,7 @@ export function About() {
       <div className="mx-auto max-w-[1400px] px-6 md:px-10 grid grid-cols-12 gap-10 items-start">
         {/* Left — figure */}
         <div className="col-span-12 lg:col-span-5 relative">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[2px]">
+          <div className="relative aspect-4/5 overflow-hidden rounded-[2px]">
             <Image
               src={about.figureImage}
               alt="A dish on the table at Al-Meezan"

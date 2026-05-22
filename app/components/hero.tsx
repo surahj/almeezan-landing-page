@@ -92,7 +92,7 @@ export function Hero() {
             />
           </div>
           <div
-            className="absolute left-0 top-0 w-[44%] aspect-[3/4] overflow-hidden rounded-[2px] shadow-2xl fade drift"
+            className="absolute left-0 top-0 w-[44%] aspect-3/4 overflow-hidden rounded-[2px] shadow-2xl fade drift"
             style={{ animationDelay: "0.85s" }}
           >
             <Image
@@ -118,7 +118,7 @@ export function Hero() {
 
           {/* Decorative price tag overlay */}
           <div
-            className="absolute right-[6%] top-[12%] bg-parchment border border-char rotate-[6deg] px-4 py-3 fade"
+            className="absolute right-[6%] top-[12%] bg-parchment border border-char rotate-6 px-4 py-3 fade"
             style={{ animationDelay: "1.2s" }}
           >
             <p className="eyebrow text-ember">House platter</p>
