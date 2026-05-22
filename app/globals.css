@@ -1,26 +1,181 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Warm editorial palette — parchment, charcoal, ember, saffron */
+  --parchment: #f4ecdc;
+  --parchment-deep: #ece1cb;
+  --char: #1b130c;
+  --char-soft: #3a2c20;
+  --ember: #c8421e;
+  --ember-deep: #a4341a;
+  --saffron: #dfa34a;
+  --moss: #4a5340;
+  --ink: #211810;
+
+  --background: var(--parchment);
+  --foreground: var(--char);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-parchment: var(--parchment);
+  --color-parchment-deep: var(--parchment-deep);
+  --color-char: var(--char);
+  --color-char-soft: var(--char-soft);
+  --color-ember: var(--ember);
+  --color-ember-deep: var(--ember-deep);
+  --color-saffron: var(--saffron);
+  --color-moss: var(--moss);
+  --color-ink: var(--ink);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Refined display utility — Fraunces with SOFT optical axis dialed up for warmth */
+.display {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-variation-settings: "SOFT" 60, "opsz" 120;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.display-tight {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-variation-settings: "SOFT" 30, "opsz" 144;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+}
+
+.display-italic {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-variation-settings: "SOFT" 100, "opsz" 144;
+  font-style: italic;
+  letter-spacing: -0.025em;
+}
+
+/* Eyebrow tag — small caps style */
+.eyebrow {
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+/* Grain texture overlay — fine, warm noise */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.6;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.105 0 0 0 0 0.074 0 0 0 0 0.047 0 0 0 0.55 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+}
+
+/* Section dividers — hairline with warm tint */
+.rule {
+  border-color: rgba(27, 19, 12, 0.12);
+}
+
+/* Menu dotted leader — classic printed menu typography */
+.leader {
+  flex: 1;
+  margin: 0 0.75rem;
+  border-bottom: 1px dotted rgba(27, 19, 12, 0.35);
+  transform: translateY(-0.35em);
+}
+
+/* Subtle entrance animations — staggered reveals on load */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-2deg);
+  }
+}
+
+@keyframes scroll-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.rise {
+  opacity: 0;
+  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+.fade {
+  opacity: 0;
+  animation: fade 1.2s ease-out forwards;
+}
+
+.drift {
+  animation: drift 6s ease-in-out infinite;
+}
+
+.scroll-x {
+  animation: scroll-x 40s linear infinite;
+}
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .fade,
+  .drift,
+  .scroll-x {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Smooth scroll for anchor nav */
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: var(--ember);
+  color: var(--parchment);
 }
