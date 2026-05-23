@@ -4,7 +4,7 @@ import { site } from "@/content/site";
 export function Hero() {
   const { hero, brand } = site;
   return (
-    <section id="top" className="relative overflow-hidden grain bg-parchment pt-32 md:pt-36 pb-24">
+    <section id="top" className="relative overflow-hidden grain bg-parchment pt-28 md:pt-36 pb-20 md:pb-24">
       {/* Decorative ember half-circle */}
       <div
         aria-hidden
@@ -17,14 +17,14 @@ export function Hero() {
         style={{ background: "radial-gradient(circle, var(--saffron), transparent 70%)" }}
       />
 
-      <div className="relative mx-auto max-w-[1400px] px-6 md:px-10 grid grid-cols-12 gap-6 md:gap-10 items-end">
+      <div className="relative mx-auto max-w-[1400px] px-5 sm:px-6 md:px-10 grid grid-cols-12 gap-6 md:gap-10 items-end">
         {/* Left — text */}
-        <div className="col-span-12 lg:col-span-7 relative z-10">
+        <div className="col-span-12 lg:col-span-7 relative z-10 min-w-0">
           <p className="eyebrow text-ember rise" style={{ animationDelay: "0.15s" }}>
             {hero.eyebrow}
           </p>
 
-          <h1 className="display-tight mt-6 text-char text-[clamp(3.2rem,9vw,8.5rem)]">
+          <h1 className="display-tight mt-5 md:mt-6 text-char text-[clamp(2.8rem,9vw,8.5rem)] wrap-break-word">
             <span className="block rise" style={{ animationDelay: "0.25s" }}>
               {hero.headline[0]}
             </span>
@@ -37,14 +37,14 @@ export function Hero() {
           </h1>
 
           <p
-            className="mt-8 max-w-xl text-[1.02rem] md:text-[1.08rem] leading-relaxed text-char-soft rise"
+            className="mt-6 md:mt-8 max-w-xl text-[1rem] md:text-[1.08rem] leading-relaxed text-char-soft rise"
             style={{ animationDelay: "0.75s" }}
           >
             {hero.sub}
           </p>
 
           <div
-            className="mt-10 flex flex-wrap items-center gap-4 rise"
+            className="mt-8 md:mt-10 flex flex-wrap items-center gap-4 rise"
             style={{ animationDelay: "0.9s" }}
           >
             <a
@@ -66,7 +66,7 @@ export function Hero() {
 
           {/* Vertical "halal · since" stamp */}
           <div
-            className="mt-16 flex items-center gap-6 rise"
+            className="mt-12 md:mt-16 flex items-center gap-4 sm:gap-6 rise"
             style={{ animationDelay: "1.05s" }}
           >
             <div className="h-px w-12 bg-char/30" />
@@ -77,7 +77,7 @@ export function Hero() {
         </div>
 
         {/* Right — image collage */}
-        <div className="col-span-12 lg:col-span-5 relative h-[440px] md:h-[560px] lg:h-[640px]">
+        <div className="col-span-12 lg:col-span-5 relative h-[360px] sm:h-[440px] md:h-[560px] lg:h-[640px]">
           <div
             className="absolute right-0 top-4 bottom-0 w-[78%] overflow-hidden rounded-[2px] fade"
             style={{ animationDelay: "0.6s" }}
@@ -128,12 +128,12 @@ export function Hero() {
       </div>
 
       {/* Marquee — menu highlights */}
-      <div className="relative mt-24 md:mt-32 border-y border-char/10 bg-char text-parchment overflow-hidden">
-        <div className="flex whitespace-nowrap py-5 scroll-x">
+      <div className="relative mt-16 md:mt-32 border-y border-char/10 bg-char text-parchment overflow-hidden">
+        <div className="flex whitespace-nowrap py-4 md:py-5 scroll-x">
           {[...hero.ticker, ...hero.ticker].map((item, i) => (
             <span
               key={i}
-              className="display-italic text-3xl md:text-4xl px-8 flex items-center gap-8"
+              className="display-italic text-2xl md:text-4xl px-6 md:px-8 flex items-center gap-6 md:gap-8"
             >
               {item}
               <span className="text-ember">✦</span>
