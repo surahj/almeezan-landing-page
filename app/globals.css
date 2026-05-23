@@ -39,6 +39,12 @@ body {
   color: var(--foreground);
 }
 
+html {
+  /* Belt-and-braces: never allow horizontal scroll on small viewports.
+     Use html (not body) so position: sticky on inner sections still works. */
+  overflow-x: hidden;
+}
+
 body {
   font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   font-feature-settings: "ss01", "cv11";

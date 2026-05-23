@@ -6,26 +6,26 @@ export function Specials() {
   const familyItems = menuItems.filter((m) => m.category === "family");
 
   return (
-    <section id="specials" className="relative bg-char text-parchment py-28 md:py-36 overflow-hidden">
+    <section id="specials" className="relative bg-char text-parchment py-20 md:py-36 overflow-hidden">
       <div
         aria-hidden
         className="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full opacity-[0.08] pointer-events-none"
         style={{ background: "radial-gradient(circle, var(--saffron), transparent 60%)" }}
       />
 
-      <div className="relative mx-auto max-w-[1400px] px-6 md:px-10">
-        <div className="grid grid-cols-12 gap-10 mb-20">
-          <div className="col-span-12 md:col-span-7">
+      <div className="relative mx-auto max-w-[1400px] px-5 sm:px-6 md:px-10">
+        <div className="grid grid-cols-12 gap-8 md:gap-10 mb-14 md:mb-20">
+          <div className="col-span-12 md:col-span-7 min-w-0">
             <p className="eyebrow text-saffron">{specials.eyebrow}</p>
-            <h2 className="display mt-6 text-[clamp(2.6rem,6vw,5.5rem)]">
+            <h2 className="display mt-5 md:mt-6 text-[clamp(2.2rem,6vw,5.5rem)] wrap-break-word">
               {specials.title.split(" ")[0]}{" "}
               <span className="display-italic text-saffron">
                 {specials.title.split(" ").slice(1).join(" ")}
               </span>
             </h2>
           </div>
-          <div className="col-span-12 md:col-span-4 md:col-start-9 md:pt-8">
-            <p className="text-[1.02rem] leading-[1.75] text-parchment/70">
+          <div className="col-span-12 md:col-span-4 md:col-start-9 md:pt-8 min-w-0">
+            <p className="text-[1rem] md:text-[1.02rem] leading-[1.7] md:leading-[1.75] text-parchment/70">
               {specials.sub}
             </p>
           </div>
@@ -35,7 +35,7 @@ export function Specials() {
           {familyItems.map((item, i) => (
             <article
               key={item.id}
-              className={`group relative overflow-hidden bg-char-soft/30 border border-parchment/10 transition-transform hover:-translate-y-1 duration-500 ${
+              className={`group relative overflow-hidden bg-char-soft/30 border border-parchment/10 transition-transform hover:-translate-y-1 duration-500 min-w-0 ${
                 i === 1 ? "md:mt-12" : ""
               }`}
             >
@@ -53,14 +53,14 @@ export function Specials() {
                   </div>
                 )}
               </div>
-              <div className="p-7">
-                <div className="flex items-baseline justify-between">
-                  <h3 className="display text-3xl">{item.name}</h3>
-                  <span className="display text-2xl text-saffron tabular-nums">
+              <div className="p-6 sm:p-7">
+                <div className="flex items-baseline justify-between gap-3">
+                  <h3 className="display text-2xl sm:text-3xl wrap-break-word">{item.name}</h3>
+                  <span className="display text-xl sm:text-2xl text-saffron tabular-nums whitespace-nowrap">
                     ${item.price}
                   </span>
                 </div>
-                <p className="mt-4 text-[0.93rem] leading-relaxed text-parchment/70">
+                <p className="mt-4 text-[0.92rem] sm:text-[0.93rem] leading-relaxed text-parchment/70">
                   {item.description}
                 </p>
                 {item.ingredients && (

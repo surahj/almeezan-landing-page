@@ -8,13 +8,13 @@ type Filter = MenuCategoryId | "all";
 
 function MenuCard({ item }: { item: MenuItem }) {
   return (
-    <article className="group flex flex-col bg-parchment border border-char/10 hover:border-ember/40 transition-colors duration-300">
+    <article className="group flex flex-col bg-parchment border border-char/10 hover:border-ember/40 transition-colors duration-300 min-w-0">
       <div className="relative aspect-4/3 overflow-hidden">
         <Image
           src={item.image}
           alt={item.name}
           fill
-          sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 100vw"
+          sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
         {item.badges && item.badges.length > 0 && (
@@ -38,10 +38,10 @@ function MenuCard({ item }: { item: MenuItem }) {
 
       <div className="flex flex-col flex-1 p-5 md:p-6">
         <div className="flex items-baseline justify-between gap-3">
-          <h3 className="display text-[1.4rem] md:text-[1.55rem] text-char leading-tight">
+          <h3 className="display text-[1.25rem] sm:text-[1.4rem] md:text-[1.55rem] text-char leading-tight wrap-break-word">
             {item.name}
           </h3>
-          <span className="display text-[1.4rem] md:text-[1.55rem] text-ember tabular-nums whitespace-nowrap">
+          <span className="display text-[1.25rem] sm:text-[1.4rem] md:text-[1.55rem] text-ember tabular-nums whitespace-nowrap">
             ${item.price}
           </span>
         </div>
@@ -78,7 +78,7 @@ function FilterPill({
     <button
       type="button"
       onClick={onClick}
-      className={`group inline-flex items-center gap-2 rounded-full px-5 md:px-6 py-2.5 md:py-3 text-[0.85rem] tracking-wide transition-colors duration-300 ${
+      className={`group inline-flex shrink-0 items-center gap-2 rounded-full px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 text-[0.85rem] tracking-wide transition-colors duration-300 ${
         active
           ? "bg-char text-parchment"
           : "bg-transparent text-char-soft hover:text-char border border-char/20 hover:border-char/40"
@@ -117,26 +117,26 @@ export function Menu() {
   );
 
   return (
-    <section id="menu" className="relative bg-parchment-deep py-28 md:py-36">
-      <div className="mx-auto max-w-[1400px] px-6 md:px-10">
+    <section id="menu" className="relative bg-parchment-deep py-20 md:py-36">
+      <div className="mx-auto max-w-[1400px] px-5 sm:px-6 md:px-10">
         {/* Header */}
-        <div className="grid grid-cols-12 gap-10 mb-14 md:mb-20">
-          <div className="col-span-12 md:col-span-6">
+        <div className="grid grid-cols-12 gap-8 md:gap-10 mb-12 md:mb-20">
+          <div className="col-span-12 md:col-span-6 min-w-0">
             <p className="eyebrow text-ember">{menu.eyebrow}</p>
-            <h2 className="display mt-6 text-char text-[clamp(2.6rem,6vw,5.5rem)]">
+            <h2 className="display mt-5 md:mt-6 text-char text-[clamp(2.2rem,6vw,5.5rem)] wrap-break-word">
               A short list,{" "}
               <span className="display-italic">done properly.</span>
             </h2>
           </div>
-          <div className="col-span-12 md:col-span-5 md:col-start-8 md:pt-8">
-            <p className="text-[1.05rem] leading-[1.75] text-char-soft max-w-md">
+          <div className="col-span-12 md:col-span-5 md:col-start-8 md:pt-8 min-w-0">
+            <p className="text-[1rem] md:text-[1.05rem] leading-[1.7] md:leading-[1.75] text-char-soft max-w-md">
               {menu.sub}
             </p>
           </div>
         </div>
 
         {/* Tonight's special — featured strip */}
-        <div className="mb-20 md:mb-24 grid grid-cols-12 gap-6 md:gap-10 items-center">
+        <div className="mb-16 md:mb-24 grid grid-cols-12 gap-6 md:gap-10 items-center">
           <div className="col-span-12 md:col-span-5 relative aspect-4/3 overflow-hidden rounded-[2px]">
             <Image
               src={offer.image}
@@ -149,18 +149,18 @@ export function Menu() {
               <p className="eyebrow">{offer.discount}</p>
             </div>
           </div>
-          <div className="col-span-12 md:col-span-6 md:col-start-7">
+          <div className="col-span-12 md:col-span-6 md:col-start-7 min-w-0">
             <p className="eyebrow text-ember">{offer.label}</p>
-            <h3 className="display mt-4 text-char text-[clamp(2rem,4.5vw,3.5rem)]">
+            <h3 className="display mt-4 text-char text-[clamp(1.8rem,4.5vw,3.5rem)] wrap-break-word">
               {offer.title}
             </h3>
-            <p className="mt-4 text-char-soft max-w-md leading-relaxed">
+            <p className="mt-4 text-[0.97rem] sm:text-base text-char-soft max-w-md leading-relaxed">
               Slow-marinated, charcoal-grilled, served with seasoned rice,
               salad, hummus and warm naan. The everyday plate at a price worth
               showing up for.
             </p>
             <div className="mt-6 flex items-baseline gap-4">
-              <span className="display text-4xl text-ember">${offer.price}</span>
+              <span className="display text-3xl sm:text-4xl text-ember">${offer.price}</span>
               <span className="text-char-soft line-through text-[0.95rem]">
                 $13.74
               </span>
@@ -169,8 +169,8 @@ export function Menu() {
         </div>
 
         {/* Filter pills */}
-        <div className="sticky top-20 z-30 -mx-6 md:-mx-10 px-6 md:px-10 py-4 mb-10 backdrop-blur-md bg-parchment-deep/85 border-y border-char/10">
-          <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+        <div className="sticky top-[72px] sm:top-20 z-30 -mx-5 sm:-mx-6 md:-mx-10 px-5 sm:px-6 md:px-10 py-3 sm:py-4 mb-8 md:mb-10 backdrop-blur-md bg-parchment-deep/85 border-y border-char/10">
+          <div className="flex flex-nowrap sm:flex-wrap sm:justify-center gap-2 md:gap-3 overflow-x-auto sm:overflow-visible -mx-1 px-1 pb-1 sm:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {menuCategories.map((cat) => (
               <FilterPill
                 key={cat.id}
@@ -184,8 +184,8 @@ export function Menu() {
         </div>
 
         {/* Active filter heading */}
-        <div className="mb-8 md:mb-10 flex items-end justify-between gap-6 flex-wrap">
-          <h3 className="display text-char text-[clamp(1.8rem,3.5vw,2.8rem)]">
+        <div className="mb-6 md:mb-10 flex items-end justify-between gap-4 sm:gap-6 flex-wrap">
+          <h3 className="display text-char text-[clamp(1.6rem,3.5vw,2.8rem)] wrap-break-word">
             {filter === "all"
               ? "Everything we serve"
               : menuCategories.find((c) => c.id === filter)?.label}
