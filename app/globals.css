@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
 :root {
   /* Warm editorial palette — parchment, charcoal, ember, saffron */
@@ -165,20 +166,90 @@ body {
   animation: scroll-x 40s linear infinite;
 }
 
+/* Let readers stop the marquee to read it */
+.scroll-x:hover {
+  animation-play-state: paused;
+}
+
+/* Cinematic slow breathe for full-bleed imagery (Ken Burns, loops forever) */
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+.kenburns {
+  animation: kenburns 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Scroll cue — gentle falling tick at the fold */
+@keyframes cue {
+  0% {
+    transform: translateY(0);
+    opacity: 0.9;
+  }
+  70%,
+  100% {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+}
+
+.cue {
+  animation: cue 1.8s ease-in-out infinite;
+}
+
 /* Reduce motion preference */
 @media (prefers-reduced-motion: reduce) {
   .rise,
   .fade,
   .drift,
-  .scroll-x {
+  .scroll-x,
+  .kenburns,
+  .cue {
     animation: none !important;
     opacity: 1 !important;
+    transform: none !important;
   }
 }
 
-/* Smooth scroll for anchor nav */
-html {
-  scroll-behavior: smooth;
+/* Anchor scrolling is handled by Lenis (anchors option) — native
+   scroll-behavior: smooth would fight its rAF loop, so it stays off. */
+
+/* Light-sweep gleam on hover — fires once per hover entry */
+.gleam {
+  overflow: hidden;
+}
+
+.gleam::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.13) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  pointer-events: none;
+  z-index: 2;
+  transition: transform 0s;
+}
+
+.gleam:hover::after {
+  transform: translateX(200%);
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gleam::after {
+    display: none !important;
+  }
 }
 
 ::selection {

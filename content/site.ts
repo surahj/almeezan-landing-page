@@ -12,6 +12,11 @@
 const unsplash = (id: string, w = 1200) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
 
+/** Portrait (9:16) center-crop of the same photo — served to phones so
+ *  object-cover doesn't have to blow up a sliver of a landscape frame. */
+const unsplashPortrait = (id: string) =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1080&h=1920&q=80`;
+
 export type MenuCategoryId =
   | "appetizers"
   | "platters"
@@ -99,7 +104,7 @@ export const menuItems: MenuItem[] = [
     category: "platters",
     name: "Waziri Kabob",
     price: "17.25",
-    image: unsplash("1603360946369-dc9bb6258143"), // grilled meat w/ tomato on white plate
+    image: unsplash("1594489883219-010b0e5eeb9d"), // charcoal chops & ribs on naan, dark editorial board
     description: "Charcoal beef chops rubbed with ginger, garlic, and our house spice. Served with rice, salad, hummus and warm naan.",
     ingredients: "Beef chop, ginger, garlic, house spice, basmati rice, salad, hummus, naan",
   },
@@ -108,7 +113,7 @@ export const menuItems: MenuItem[] = [
     category: "platters",
     name: "Beef T-Bone Steak",
     price: "19.50",
-    image: unsplash("1594041680534-e8c8cdebd659"), // grilled meat on black ceramic plate
+    image: unsplash("1597445283613-5cee0bcfca9a"), // two T-bone steaks on charcoal grill, bone visible
     description: "10oz halal T-bone, aged and marinated overnight, grilled hot and finished with smoked salt. Plated with rice and salad.",
     ingredients: "Halal beef T-bone, smoked salt, rice, salad",
     badges: ["Premium"],
@@ -118,7 +123,7 @@ export const menuItems: MenuItem[] = [
     category: "platters",
     name: "Beef Shami Kabob",
     price: "17.50",
-    image: unsplash("1597354060917-2c56d7467f73"), // grilled meat on charcoal grill
+    image: unsplash("1532636875304-0c89119d9b4d"), // two minced-beef kofta kabobs plated w/ rice & tomato
     description: "Slow-spiced minced beef patties with a gentle char. Comes with rice, salad, hummus and naan.",
     ingredients: "Minced beef, garam masala, onion, ginger, rice, salad, hummus, naan",
   },
@@ -136,7 +141,7 @@ export const menuItems: MenuItem[] = [
     category: "platters",
     name: "Lamb Shank",
     price: "17.25",
-    image: unsplash("1532636875304-0c89119d9b4d"), // roasted meat dish
+    image: unsplash("1773417325310-cc9c9bef75e7"), // braised lamb shank, bone up, glossy sauce
     description: "Braised four hours in tomato, onion and warm spices until fall-off-the-bone tender. Served over rice with naan.",
     ingredients: "Lamb shank, tomato, onion, cinnamon, cardamom, rice, naan",
     badges: ["Slow-cooked"],
@@ -176,7 +181,7 @@ export const menuItems: MenuItem[] = [
     category: "platters",
     name: "Chicken Tikka",
     price: "15.05",
-    image: unsplash("1610057099431-d73a1c9d2f2f"), // tandoori chicken on white ceramic
+    image: unsplash("1599487488170-d11ec9c172f0"), // red-marinated chicken tikka skewers over smoking charcoal
     description: "Bone-in chicken tikka, generous on the smoke and easy on the heat. Yogurt-marinated and charcoal-cooked.",
     ingredients: "Chicken, yogurt, garam masala, rice, salad, naan",
   },
@@ -185,7 +190,7 @@ export const menuItems: MenuItem[] = [
     category: "platters",
     name: "Chicken Shawarma",
     price: "15.05",
-    image: unsplash("1665989215795-f67f4723087d"), // middle eastern food spread
+    image: unsplash("1642346854073-a88b5a77038c"), // shaved spiced chicken shawarma over open flatbread
     description: "Slow-stacked and shaved off the vertical spit. Layered over rice with garlic sauce, pickles, and warm naan.",
     ingredients: "Chicken, garlic sauce, pickles, rice, salad, naan",
   },
@@ -232,7 +237,7 @@ export const menuItems: MenuItem[] = [
     category: "platters",
     name: "Daal & Rice",
     price: "10.99",
-    image: unsplash("1638378545909-d78bd9b4271c"), // bowl with food (daal)
+    image: unsplash("1755090154817-58d9d36ec988"), // golden tadka daal in kadai w/ naan behind
     description: "Slow-simmered lentils tempered with cumin, garlic and ghee. Served with basmati rice. Comfort, plain and true.",
     ingredients: "Yellow lentil, cumin, garlic, ghee, basmati rice",
     badges: ["Vegetarian", "Comfort"],
@@ -244,7 +249,7 @@ export const menuItems: MenuItem[] = [
     category: "wraps",
     name: "Veggie Falafel Wrap",
     price: "8.18",
-    image: unsplash("1584959370147-fcdd784b2e45"), // green vegetable on bread (wrap)
+    image: unsplash("1681072530653-db8fe2538631"), // falafel wrap in checkered paper w/ fries
     description: "Crisp falafel, tahini, pickled vegetables and greens folded into a warm pita.",
     ingredients: "Falafel, tahini, pickles, greens, pita",
     badges: ["Vegetarian"],
@@ -254,7 +259,7 @@ export const menuItems: MenuItem[] = [
     category: "wraps",
     name: "Chicken Shawarma Wrap",
     price: "9.95",
-    image: unsplash("1681072530653-db8fe2538631"), // wrap & fries on plate
+    image: unsplash("1529006557810-274b9b2fc783"), // open shawarma wraps w/ shaved chicken, onion & fries
     description: "Slow-roasted chicken shawarma with garlic sauce, pickles and fries — rolled tight in pita.",
     ingredients: "Chicken shawarma, garlic sauce, pickles, fries, pita",
     badges: ["Bestseller"],
@@ -264,7 +269,7 @@ export const menuItems: MenuItem[] = [
     category: "wraps",
     name: "Beef Shami Kabob Wrap",
     price: "10.85",
-    image: unsplash("1605888983099-e33007b6ff27"), // food on blue ceramic plate
+    image: unsplash("1699728088614-7d1d4277414b"), // pita stuffed with beef slices, tomato & parsley
     description: "House-made shami kabob with fresh vegetables and tangy yogurt sauce, wrapped in soft pita.",
     ingredients: "Shami kabob, lettuce, tomato, onion, yogurt sauce, pita",
   },
@@ -282,7 +287,7 @@ export const menuItems: MenuItem[] = [
     category: "wraps",
     name: "Spicy Chicken Tikka Wrap",
     price: "10.85",
-    image: unsplash("1666819476628-2f3afb0ca147"), // plate of food (wrap-style)
+    image: unsplash("1584959370147-fcdd784b2e45"), // pita stuffed w/ charred grilled meat & lettuce
     description: "Spicy chicken tikka with extra kashmiri heat, garlic sauce and pickles. Wrapped tight.",
     ingredients: "Chicken tikka, kashmiri chili, garlic sauce, pickles, pita",
     badges: ["Spicy"],
@@ -292,7 +297,7 @@ export const menuItems: MenuItem[] = [
     category: "wraps",
     name: "Chicken Tikka Wrap",
     price: "10.85",
-    image: unsplash("1612390649890-9498b83d445c"), // salad on wooden plate
+    image: unsplash("1666819476628-2f3afb0ca147"), // grilled chicken strips & white sauce in pita
     description: "Yogurt-marinated chicken tikka, salad, garlic sauce and pickles in warm pita.",
     ingredients: "Chicken tikka, garlic sauce, pickles, salad, pita",
   },
@@ -301,7 +306,7 @@ export const menuItems: MenuItem[] = [
     category: "wraps",
     name: "Lamb Kabob Wrap",
     price: "10.85",
-    image: unsplash("1642346854073-a88b5a77038c"), // taco with meat & lettuce
+    image: unsplash("1612390649890-9498b83d445c"), // flatbread w/ gyro-style meat & pink pickled onion
     description: "Cubes of charcoal lamb kabob with mint-yogurt, pickled onion and crunchy lettuce. Folded in pita.",
     ingredients: "Lamb kabob, mint-yogurt, pickled onion, lettuce, pita",
   },
@@ -310,7 +315,7 @@ export const menuItems: MenuItem[] = [
     category: "wraps",
     name: "Fish Wrap",
     price: "10.85",
-    image: unsplash("1611255172659-fc8ae0bc20f7"), // cucumber/tomato plate
+    image: unsplash("1560215987-307b2039a677"), // battered fish wraps w/ slaw & cilantro
     description: "Crisp battered fish with tartar, pickles and crunchy slaw in warm pita.",
     ingredients: "Cod, tartar, slaw, pickles, pita",
   },
@@ -333,7 +338,7 @@ export const menuItems: MenuItem[] = [
     name: "Dinner for Three",
     price: "45.00",
     serves: "Serves 3",
-    image: unsplash("1773314863076-835e0bdbe3ea"), // elegant table w/ diverse plates
+    image: unsplash("1661994215679-cde7c2c5c060"), // real family feast table — rice platter, kofta, pastries
     description: "Three entrées, seasoned rice and salad, hummus and naan, three beverages. Plenty to pass around.",
     ingredients: "Choice of 3 entrées, rice, salad, hummus, naan, 3 beverages",
     badges: ["Shareable"],
@@ -365,7 +370,7 @@ export const menuItems: MenuItem[] = [
     category: "desserts",
     name: "Rice Kheer",
     price: "5.50",
-    image: unsplash("1699708263762-00ca477760bd"), // plate of food on wooden table
+    image: unsplash("1618870027824-7d655f038eae"), // saffron rice pudding w/ pistachio & rose petals
     description: "Basmati rice slow-cooked in milk with cardamom, saffron and pistachio. Served warm or chilled.",
     ingredients: "Basmati rice, milk, cardamom, saffron, pistachio",
   },
@@ -385,21 +390,55 @@ export const site = {
   brand: {
     name: "Al-Meezan",
     suffix: "Spicy Grill",
-    tagline: "A halal kitchen of Middle Eastern fire & spice.",
+    tagline: "A halal Afghan kitchen of fire & spice in Toronto.",
     establishedHint: "Etobicoke",
   },
 
   hero: {
-    eyebrow: "Halal · Charcoal-grilled · Open Daily",
-    headline: ["Smoke,", "spice,", "& tradition."],
-    sub: "From slow-marinated kabobs to fire-licked tandoori, every plate at Al-Meezan carries the rich flavors of the Middle East — built on fresh ingredients and the spice routes that started it all.",
+    eyebrow: "Halal · Charcoal-grilled · Afghan kitchen",
+    headline: ["Smoke,", "spice,", "& Afghan soul."],
+    sub: "Inspired by Afghan roots, made for Toronto. Kabobs slow-marinated overnight and lifted off live charcoal, basmati perfumed with cardamom, naan served warm — fresh and fully halal, every single day.",
     primaryCta: { label: "See the Menu", href: "#menu" },
-    secondaryCta: { label: "Visit Tonight", href: "#visit" },
-    showcase: {
-      large: unsplash("1777891257717-6a83ac8e0bac", 1400), // grilled meat skewers w/ flatbread
-      smallTop: unsplash("1519708227418-c8fd9a32b7a2", 800), // grilled fish & vegetables
-      smallBottom: unsplash("1555939594-58d7cb561ad1", 800), // grilled meat & vegetable spread
-    },
+    secondaryCta: { label: "Book Catering", href: "#catering" },
+    // Cinematic slideshow — crossfades in order, first frame is the LCP image.
+    // `src` is the wide frame (desktop), `portrait` the 9:16 crop (phones).
+    backdrops: [
+      {
+        src: unsplash("1771285119318-b342c3ecc51c", 2400), // mixed grill feast platter — lamb chops, kofta, kabobs
+        portrait: unsplashPortrait("1771285119318-b342c3ecc51c"),
+        alt: "A grand mixed grill platter of lamb chops, kofta and kabobs",
+      },
+      {
+        src: unsplash("1777891257717-6a83ac8e0bac", 2400), // grilled meat skewers w/ flatbread
+        portrait: unsplashPortrait("1777891257717-6a83ac8e0bac"),
+        alt: "Charcoal-grilled kabob skewers served with warm flatbread",
+      },
+      {
+        src: unsplash("1603088549155-6ae9395b928f", 2400), // grilled meat close-up on charcoal grill
+        portrait: unsplashPortrait("1603088549155-6ae9395b928f"),
+        alt: "Marinated meat searing on the charcoal grill",
+      },
+      {
+        src: unsplash("1777716003985-68fed08d0c7e", 2400), // kabob plate with rice, pita & tea — warm restaurant scene
+        portrait: unsplashPortrait("1777716003985-68fed08d0c7e"),
+        alt: "A kabob platter with rice and pita, served with black tea",
+      },
+      {
+        src: unsplash("1777891257551-bd5ecdb71c7e", 2400), // chicken skewers w/ naan & olives on dark slate
+        portrait: unsplashPortrait("1777891257551-bd5ecdb71c7e"),
+        alt: "Grilled chicken skewers with naan, olives and grilled vegetables",
+      },
+      {
+        src: unsplash("1692106914406-093b0df73a10", 2400), // crossed lamb rack chops w/ vibrant vegetables
+        portrait: unsplashPortrait("1692106914406-093b0df73a10"),
+        alt: "Grilled lamb chops crossed over charred vegetables",
+      },
+      {
+        src: unsplash("1734987052573-0fbe611842ae", 2400), // herb-crusted lamb chops piled on wood board, dark backdrop
+        portrait: unsplashPortrait("1734987052573-0fbe611842ae"),
+        alt: "Herb-crusted lamb chops stacked on a rustic wooden board",
+      },
+    ],
     ticker: [
       "Sultani Kabob",
       "Tandoori Salmon",
@@ -411,14 +450,49 @@ export const site = {
     ],
   },
 
-  about: {
-    eyebrow: "Our table",
-    title: "Cooking the way it ought to be cooked.",
-    body: [
-      "We opened Al-Meezan Spicy Grill to share the food we grew up around — the kebabs lifted off live charcoal, the rice perfumed with cardamom and cloves, the breads pulled hot from the oven and torn between friends.",
-      "Everything is halal, made fresh through the day. Our spice blends are mixed in-house. Our meat is marinated overnight. And the wood-fire grill is on from the moment we open the door until the last guest leaves.",
+  pillars: {
+    eyebrow: "The Al-Meezan way",
+    title: "Four things we never compromise.",
+    items: [
+      {
+        n: "01",
+        title: "Fire Fed",
+        text: "Every kabob is grilled over live charcoal — never a flat-top, never a heat lamp. The fire is lit at open and stays lit until close.",
+        image: unsplash("1779418682869-5a08f74ccaae", 900), // kabob skewers over crisp open flame
+        tone: "ember",
+      },
+      {
+        n: "02",
+        title: "Hand Made",
+        text: "Spices ground in-house. Meat marinated overnight. Naan warmed to order. Slow food, served fast.",
+        image: unsplash("1756821753151-0879e7862e50", 900), // basket of fresh naan with herbs
+        tone: "saffron",
+      },
+      {
+        n: "03",
+        title: "Halal Always",
+        text: "Every ingredient is 100% certified halal — sourced fresh, prepared in-house, served with confidence.",
+        image: unsplash("1631515243349-e0cb75fb8d3a", 900), // chicken pulao-style rice bowl
+        tone: "moss",
+      },
+      {
+        n: "04",
+        title: "Family First",
+        text: "Afghan food has always been shared. Our platters and family dinners are built for the middle of the table.",
+        image: unsplash("1734770931927-6410f9a64832", 900), // afghan restaurant spread — naan, kabobs, soups
+        tone: "char",
+      },
     ],
-    figureImage: unsplash("1743674453093-592bed88018e", 1200), // mediterranean platter
+  },
+
+  about: {
+    eyebrow: "Our story",
+    title: "An Afghan table, set the old way.",
+    body: [
+      "Al-Meezan started with the food we grew up around — kabobs lifted off live charcoal, basmati perfumed with cardamom and cloves, and naan pulled warm from the oven and torn between friends.",
+      "Everything is halal, made fresh through the day. Our spice blends are ground in-house. Our meat is marinated overnight. And the charcoal grill is on from the moment we open the door until the last guest leaves.",
+    ],
+    figureImage: unsplash("1746274394124-141a1d1c5af3", 1200), // afghan home table — pulao, salad, naan (film look)
     smallStat: { value: "11—11", label: "Open daily" },
   },
 
@@ -442,6 +516,44 @@ export const site = {
     image: unsplash("1697155406147-7d640cbba0e7", 1200), // plated chicken with onions & lemons
   },
 
+  catering: {
+    eyebrow: "Catering & events",
+    title: "Served with style.",
+    sub: "From office lunches to wedding feasts, we bring the charcoal grill to your table — kabob platters, family trays and full-service spreads, sized for ten to two hundred guests.",
+    note: "Please allow 48 hours' notice for large orders.",
+    image: unsplash("1738291422837-85761f82a10e", 1600), // top-down spread w/ spice bowls on woven mat
+    primaryCta: { label: "Call to Book", href: "tel:+14166757775" },
+    secondaryCta: { label: "See Family Dinners", href: "#specials" },
+  },
+
+  faq: {
+    eyebrow: "Good to know",
+    title: "Questions, answered.",
+    sub: "The things people ask us most — before they walk in and ask for seconds.",
+    items: [
+      {
+        q: "What is Al-Meezan known for?",
+        a: "Charcoal-grilled Afghan kabobs — Sultani, Waziri, lamb and chicken — served over seasoned basmati with salad, hummus and warm naan, made fresh through the day.",
+      },
+      {
+        q: "Is everything halal?",
+        a: "Yes — 100%. Every meat we serve is certified halal, and every dish is prepared in-house in a fully halal kitchen.",
+      },
+      {
+        q: "Do you cater events?",
+        a: "We do. From office lunches to wedding feasts, we build platters and full spreads for ten to two hundred guests. Call (416) 675-7775 and we'll plan it with you.",
+      },
+      {
+        q: "Can we order for the whole family?",
+        a: "That's the house specialty. Family Dinners for two, three or four come with your choice of entrées plus rice, salad, hummus, naan and beverages — already sorted.",
+      },
+      {
+        q: "Where are you located?",
+        a: "670 Rexdale Blvd in Etobicoke — five minutes from Pearson Airport, with easy parking. Open daily, 11:00 AM to 11:00 PM. Walk in or call ahead.",
+      },
+    ],
+  },
+
   visit: {
     eyebrow: "Find us",
     title: "670 Rexdale Boulevard.",
@@ -462,6 +574,8 @@ export const site = {
     links: [
       { label: "Menu", href: "#menu" },
       { label: "Family Dinners", href: "#specials" },
+      { label: "Catering", href: "#catering" },
+      { label: "FAQ", href: "#faq" },
       { label: "Visit", href: "#visit" },
       { label: "Call", href: "tel:+14166757775" },
     ],

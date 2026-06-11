@@ -1,4 +1,5 @@
 import { site } from "@/content/site";
+import { Reveal, RevealFade, RevealStagger, StaggerItem } from "./motion/reveal";
 
 export function Visit() {
   const { visit } = site;
@@ -12,7 +13,7 @@ export function Visit() {
 
       <div className="relative mx-auto max-w-[1400px] px-5 sm:px-6 md:px-10 grid grid-cols-12 gap-8 md:gap-10">
         {/* Left — heading & address */}
-        <div className="col-span-12 lg:col-span-7 min-w-0">
+        <Reveal className="col-span-12 lg:col-span-7 min-w-0">
           <p className="eyebrow text-ember">{visit.eyebrow}</p>
           <h2 className="display mt-5 md:mt-6 text-char text-[clamp(2.2rem,7vw,6.5rem)] wrap-break-word">
             {visit.title.split(" ").slice(0, 1).join(" ")}{" "}
@@ -24,18 +25,24 @@ export function Visit() {
             {visit.sub}
           </p>
 
-          {/* Big hours marquee-style block */}
-          <div className="mt-12 md:mt-16 inline-block border border-char/20 px-6 py-5 sm:px-8 sm:py-7">
-            <p className="eyebrow text-ember">{visit.hoursLabel}</p>
-            <p className="display mt-3 text-char text-5xl md:text-6xl">
-              11<span className="display-italic text-ember">—</span>11
-            </p>
-            <p className="mt-2 text-[0.92rem] text-char-soft">11:00 AM to 11:00 PM</p>
-          </div>
-        </div>
+          {/* Big hours block — items stagger in */}
+          <RevealStagger className="mt-12 md:mt-16 inline-flex flex-col gap-1 border border-char/20 px-6 py-5 sm:px-8 sm:py-7">
+            <StaggerItem>
+              <p className="eyebrow text-ember">{visit.hoursLabel}</p>
+            </StaggerItem>
+            <StaggerItem>
+              <p className="display mt-3 text-char text-5xl md:text-6xl">
+                11<span className="display-italic text-ember">—</span>11
+              </p>
+            </StaggerItem>
+            <StaggerItem>
+              <p className="mt-2 text-[0.92rem] text-char-soft">11:00 AM to 11:00 PM</p>
+            </StaggerItem>
+          </RevealStagger>
+        </Reveal>
 
         {/* Right — contact card */}
-        <aside className="col-span-12 lg:col-span-4 lg:col-start-9 lg:mt-8 min-w-0">
+        <RevealFade className="col-span-12 lg:col-span-4 lg:col-start-9 lg:mt-8 min-w-0" delay={0.15}>
           <div className="bg-char text-parchment p-6 sm:p-9 md:p-11">
             <p className="eyebrow text-saffron">The address</p>
             <p className="display mt-4 text-[1.65rem] sm:text-3xl md:text-4xl leading-tight wrap-break-word">
@@ -46,8 +53,8 @@ export function Visit() {
               </span>
             </p>
 
-            <div className="mt-8 md:mt-10 space-y-5">
-              <div>
+            <RevealStagger className="mt-8 md:mt-10 space-y-5">
+              <StaggerItem>
                 <p className="eyebrow text-parchment/60">Phone</p>
                 <a
                   href={visit.telUrl}
@@ -55,9 +62,9 @@ export function Visit() {
                 >
                   {visit.phone}
                 </a>
-              </div>
+              </StaggerItem>
 
-              <div className="pt-4 flex flex-col gap-3">
+              <StaggerItem className="pt-4 flex flex-col gap-3">
                 <a
                   href={visit.mapsUrl}
                   target="_blank"
@@ -77,10 +84,10 @@ export function Visit() {
                     Call to order
                   </span>
                 </a>
-              </div>
-            </div>
+              </StaggerItem>
+            </RevealStagger>
           </div>
-        </aside>
+        </RevealFade>
       </div>
     </section>
   );

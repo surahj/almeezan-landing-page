@@ -2,14 +2,19 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
+import { m, AnimatePresence } from "motion/react";
 import { site, menuItems, menuCategories, type MenuItem, type MenuCategoryId } from "@/content/site";
+import { Reveal, RevealFade } from "./motion/reveal";
 
 type Filter = MenuCategoryId | "all";
 
 function MenuCard({ item }: { item: MenuItem }) {
   return (
-    <article className="group flex flex-col bg-parchment border border-char/10 hover:border-ember/40 transition-colors duration-300 min-w-0">
-      <div className="relative aspect-4/3 overflow-hidden">
+    <m.article
+      whileHover={{ y: -6 }}
+      transition={{ type: "spring", stiffness: 320, damping: 26 }}
+      className="group flex h-full flex-col bg-parchment border border-char/10 hover:border-ember/40 hover:shadow-[0_18px_40px_-18px_rgba(27,19,12,0.35)] transition-[border-color,box-shadow] duration-300 min-w-0">
+      <div className="gleam relative aspect-4/3 overflow-hidden">
         <Image
           src={item.image}
           alt={item.name}
@@ -59,7 +64,7 @@ function MenuCard({ item }: { item: MenuItem }) {
           </div>
         )}
       </div>
-    </article>
+    </m.article>
   );
 }
 
@@ -75,26 +80,34 @@ function FilterPill({
   onClick: () => void;
 }) {
   return (
-    <button
+    <m.button
       type="button"
+      whileTap={{ scale: 0.94 }}
       onClick={onClick}
-      className={`group inline-flex shrink-0 items-center gap-2 rounded-full px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 text-[0.85rem] tracking-wide transition-colors duration-300 ${
+      className={`relative inline-flex shrink-0 items-center gap-2 rounded-full px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 text-[0.85rem] tracking-wide border transition-colors duration-200 ${
         active
-          ? "bg-char text-parchment"
-          : "bg-transparent text-char-soft hover:text-char border border-char/20 hover:border-char/40"
+          ? "border-transparent text-parchment"
+          : "border-char/20 text-char-soft hover:text-char hover:border-char/40"
       }`}
     >
-      <span className="font-medium uppercase tracking-[0.18em] text-[0.72rem]">
+      {active && (
+        <m.span
+          layoutId="filter-active-bg"
+          className="absolute inset-0 rounded-full bg-char"
+          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+        />
+      )}
+      <span className="relative z-10 font-medium uppercase tracking-[0.18em] text-[0.72rem]">
         {label}
       </span>
       <span
-        className={`tabular-nums text-[0.7rem] ${
+        className={`relative z-10 tabular-nums text-[0.7rem] ${
           active ? "text-parchment/60" : "text-char-soft/60"
         }`}
       >
         {count}
       </span>
-    </button>
+    </m.button>
   );
 }
 
@@ -120,7 +133,7 @@ export function Menu() {
     <section id="menu" className="relative bg-parchment-deep py-20 md:py-36">
       <div className="mx-auto max-w-[1400px] px-5 sm:px-6 md:px-10">
         {/* Header */}
-        <div className="grid grid-cols-12 gap-8 md:gap-10 mb-12 md:mb-20">
+        <Reveal className="grid grid-cols-12 gap-8 md:gap-10 mb-12 md:mb-20">
           <div className="col-span-12 md:col-span-6 min-w-0">
             <p className="eyebrow text-ember">{menu.eyebrow}</p>
             <h2 className="display mt-5 md:mt-6 text-char text-[clamp(2.2rem,6vw,5.5rem)] wrap-break-word">
@@ -133,11 +146,11 @@ export function Menu() {
               {menu.sub}
             </p>
           </div>
-        </div>
+        </Reveal>
 
         {/* Tonight's special — featured strip */}
         <div className="mb-16 md:mb-24 grid grid-cols-12 gap-6 md:gap-10 items-center">
-          <div className="col-span-12 md:col-span-5 relative aspect-4/3 overflow-hidden rounded-[2px]">
+          <RevealFade className="col-span-12 md:col-span-5 relative aspect-4/3 overflow-hidden rounded-[2px]">
             <Image
               src={offer.image}
               alt={offer.title}
@@ -148,8 +161,8 @@ export function Menu() {
             <div className="absolute top-4 left-4 bg-ember text-parchment px-3 py-2">
               <p className="eyebrow">{offer.discount}</p>
             </div>
-          </div>
-          <div className="col-span-12 md:col-span-6 md:col-start-7 min-w-0">
+          </RevealFade>
+          <Reveal className="col-span-12 md:col-span-6 md:col-start-7 min-w-0" delay={0.15}>
             <p className="eyebrow text-ember">{offer.label}</p>
             <h3 className="display mt-4 text-char text-[clamp(1.8rem,4.5vw,3.5rem)] wrap-break-word">
               {offer.title}
@@ -165,7 +178,7 @@ export function Menu() {
                 $13.74
               </span>
             </div>
-          </div>
+          </Reveal>
         </div>
 
         {/* Filter pills */}
@@ -195,20 +208,31 @@ export function Menu() {
           </p>
         </div>
 
-        {/* Card grid */}
-        <div
-          key={filter}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6"
-        >
-          {filtered.map((item, i) => (
-            <div
-              key={item.id}
-              className="rise"
-              style={{ animationDelay: `${Math.min(i * 0.04, 0.6)}s` }}
-            >
-              <MenuCard item={item} />
-            </div>
-          ))}
+        {/* Card grid — items animate out/in and re-flow when the filter changes */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">
+          <AnimatePresence mode="popLayout" initial={false}>
+            {filtered.map((item, i) => (
+              <m.div
+                key={item.id}
+                layout
+                initial={{ opacity: 0, y: 24, scale: 0.97 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  transition: {
+                    duration: 0.45,
+                    ease: [0.2, 0.7, 0.2, 1],
+                    delay: Math.min(i * 0.04, 0.4),
+                  },
+                }}
+                exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.22 } }}
+                className="min-w-0"
+              >
+                <MenuCard item={item} />
+              </m.div>
+            ))}
+          </AnimatePresence>
         </div>
 
         {filtered.length === 0 && (
