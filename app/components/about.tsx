@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { site } from "@/content/site";
+import { Reveal, RevealFade, RevealStagger, StaggerItem } from "./motion/reveal";
 
 export function About() {
   const { about } = site;
@@ -7,14 +8,14 @@ export function About() {
     <section id="about" className="relative bg-parchment py-20 md:py-36 overflow-hidden">
       <div className="mx-auto max-w-[1400px] px-5 sm:px-6 md:px-10 grid grid-cols-12 gap-8 md:gap-10 items-start">
         {/* Left — figure */}
-        <div className="col-span-12 lg:col-span-5 relative min-w-0">
-          <div className="relative aspect-4/5 overflow-hidden rounded-[2px]">
+        <RevealFade className="col-span-12 lg:col-span-5 relative min-w-0">
+          <div className="group relative aspect-4/5 overflow-hidden rounded-[2px]">
             <Image
               src={about.figureImage}
-              alt="A dish on the table at Al-Meezan"
+              alt="An Afghan table set with pulao, salad and naan"
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"
-              className="object-cover"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>
           {/* Stat overlay */}
@@ -22,10 +23,10 @@ export function About() {
             <p className="display-tight text-4xl sm:text-5xl text-saffron">{about.smallStat.value}</p>
             <p className="eyebrow text-parchment/70 mt-2">{about.smallStat.label}</p>
           </div>
-        </div>
+        </RevealFade>
 
         {/* Right — copy */}
-        <div className="col-span-12 lg:col-span-6 lg:col-start-7 pt-10 lg:pt-12 min-w-0">
+        <Reveal className="col-span-12 lg:col-span-6 lg:col-start-7 pt-10 lg:pt-12 min-w-0">
           <p className="eyebrow text-ember">{about.eyebrow}</p>
           <h2 className="display mt-5 md:mt-6 text-char text-[clamp(2rem,5vw,4.5rem)] wrap-break-word">
             {about.title.split(" ").slice(0, -2).join(" ")}{" "}
@@ -40,19 +41,19 @@ export function About() {
           </div>
 
           {/* Detail strip */}
-          <div className="mt-10 md:mt-12 grid grid-cols-3 gap-4 sm:gap-6 max-w-xl">
+          <RevealStagger className="mt-10 md:mt-12 grid grid-cols-3 gap-4 sm:gap-6 max-w-xl">
             {[
               { k: "Charcoal", v: "Grilled" },
               { k: "Daily", v: "Fresh" },
               { k: "Halal", v: "Certified" },
             ].map((d) => (
-              <div key={d.k} className="border-t border-char/15 pt-4 min-w-0">
+              <StaggerItem key={d.k} className="border-t border-char/15 pt-4 min-w-0">
                 <p className="eyebrow text-char-soft">{d.k}</p>
                 <p className="display text-xl sm:text-2xl mt-2 text-char">{d.v}</p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
-        </div>
+          </RevealStagger>
+        </Reveal>
       </div>
     </section>
   );

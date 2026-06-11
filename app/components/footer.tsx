@@ -1,4 +1,5 @@
 import { site } from "@/content/site";
+import { RevealStagger, StaggerItem } from "./motion/reveal";
 
 export function Footer() {
   const { footer, brand } = site;
@@ -19,32 +20,38 @@ export function Footer() {
             </p>
           </div>
 
-          <nav className="col-span-6 md:col-span-3 md:col-start-7 flex flex-col gap-2 min-w-0">
-            <p className="eyebrow text-saffron mb-2">Visit</p>
-            {footer.links.map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                className="text-[0.92rem] sm:text-[0.95rem] text-parchment/80 hover:text-saffron transition-colors w-fit"
-              >
-                {l.label}
-              </a>
-            ))}
+          <nav className="col-span-6 md:col-span-3 md:col-start-7 flex flex-col gap-0 min-w-0">
+            <p className="eyebrow text-saffron mb-3">Visit</p>
+            <RevealStagger className="flex flex-col gap-2">
+              {footer.links.map((l) => (
+                <StaggerItem key={l.label}>
+                  <a
+                    href={l.href}
+                    className="text-[0.92rem] sm:text-[0.95rem] text-parchment/80 hover:text-saffron transition-colors w-fit"
+                  >
+                    {l.label}
+                  </a>
+                </StaggerItem>
+              ))}
+            </RevealStagger>
           </nav>
 
-          <nav className="col-span-6 md:col-span-2 md:col-start-11 flex flex-col gap-2 min-w-0">
-            <p className="eyebrow text-saffron mb-2">Follow</p>
-            {footer.social.map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                target="_blank"
-                rel="noreferrer"
-                className="text-[0.92rem] sm:text-[0.95rem] text-parchment/80 hover:text-saffron transition-colors w-fit"
-              >
-                {l.label}
-              </a>
-            ))}
+          <nav className="col-span-6 md:col-span-2 md:col-start-11 flex flex-col gap-0 min-w-0">
+            <p className="eyebrow text-saffron mb-3">Follow</p>
+            <RevealStagger className="flex flex-col gap-2">
+              {footer.social.map((l) => (
+                <StaggerItem key={l.label}>
+                  <a
+                    href={l.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[0.92rem] sm:text-[0.95rem] text-parchment/80 hover:text-saffron transition-colors w-fit"
+                  >
+                    {l.label}
+                  </a>
+                </StaggerItem>
+              ))}
+            </RevealStagger>
           </nav>
         </div>
 

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Fraunces, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { site } from "@/content/site";
+import { Providers } from "./components/providers";
+import { ProgressBar } from "./components/progress-bar";
 
 const fraunces = Fraunces({
   variable: "--font-display",
@@ -17,7 +19,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: `${site.brand.name} ${site.brand.suffix} — Halal Middle Eastern Grill, Etobicoke`,
+  title: `${site.brand.name} ${site.brand.suffix} — Halal Afghan Grill, Toronto`,
   description: site.brand.tagline,
 };
 
@@ -32,7 +34,10 @@ export default function RootLayout({
       className={`${fraunces.variable} ${dmSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        {children}
+        <Providers>
+          <ProgressBar />
+          {children}
+        </Providers>
       </body>
     </html>
   );

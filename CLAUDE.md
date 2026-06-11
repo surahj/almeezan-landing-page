@@ -19,13 +19,16 @@ There is no test runner configured.
 
 ## Architecture
 
-Single-page landing site for a restaurant. One route (`app/page.tsx`) composes section components in fixed order; navigation is hash-based (`#menu`, `#about`, `#specials`, `#visit`) — there are no additional routes.
+Single-page landing site for an Afghan restaurant. One route (`app/page.tsx`) composes section components in fixed order (Hero → Pillars → About → Menu → Specials → Catering → FAQ → Visit); navigation is hash-based (`#menu`, `#about`, `#specials`, `#catering`, `#faq`, `#visit`) — there are no additional routes.
 
 **Single source of truth — `content/site.ts`**
 All copy, images, prices, menu data, links, and brand strings live in this one file and are imported via `@/content/site` (path alias `@/*` → repo root). Section components are presentational and read from `site`, `menuItems`, `menuCategories`. Edit content here, not in components. The `unsplash(id, w)` helper builds image URLs; to swap an image, replace the call with a `/images/...` path and drop the file into `public/images/`.
 
 **Server vs client components**
-Everything in `app/components/` is a React Server Component by default. The only `"use client"` is `app/components/menu.tsx`, which holds the category-filter state. Keep new components server-rendered unless they genuinely need state, effects, or browser APIs.
+Everything in `app/components/` is a React Server Component by default. `"use client"` is limited to: `menu.tsx` (category-filter state + Motion grid animations), `providers.tsx` (Lenis smooth scroll + LazyMotion/MotionConfig shell, mounted in `layout.tsx`), and the motion primitives in `app/components/motion/` (`Reveal`/`RevealFade` scroll reveals, `ParallaxHero`). Server sections animate by passing children through these client wrappers — keep new components server-rendered and wrap them in a primitive instead of adding `"use client"`.
+
+**Animation — Motion (motion/react) + Lenis**
+Always import `m.*` from `motion/react` (never `motion.*`) — the app runs `LazyMotion strict` with `domMax` features. Reduced motion is honoured globally via `MotionConfig reducedMotion="user"`, and Lenis is skipped for reduced-motion users. Anchor scrolling is handled by Lenis's `anchors` option — do not re-add CSS `scroll-behavior: smooth`.
 
 **Styling — Tailwind v4 + design tokens in `app/globals.css`**
 - Tailwind v4 is imported via `@import "tailwindcss"` and configured inline with `@theme inline { ... }` — there is no `tailwind.config.*`. New color or font tokens must be declared in `globals.css` to be available as Tailwind utilities (e.g. `bg-ember`, `text-parchment`).
