@@ -52,26 +52,26 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Refined display utility — Fraunces with SOFT optical axis dialed up for warmth */
+/* Display utility — League Spartan bold grotesque */
 .display {
-  font-family: var(--font-display), ui-serif, Georgia, serif;
-  font-variation-settings: "SOFT" 60, "opsz" 120;
-  letter-spacing: -0.03em;
-  line-height: 0.95;
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
 }
 
 .display-tight {
-  font-family: var(--font-display), ui-serif, Georgia, serif;
-  font-variation-settings: "SOFT" 30, "opsz" 144;
-  letter-spacing: -0.04em;
-  line-height: 0.92;
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
 }
 
 .display-italic {
-  font-family: var(--font-display), ui-serif, Georgia, serif;
-  font-variation-settings: "SOFT" 100, "opsz" 144;
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
   font-style: italic;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
 }
 
 /* Eyebrow tag — small caps style */

@@ -26,7 +26,7 @@ export function Hero() {
               {hero.eyebrow}
             </p>
 
-            <h1 className="display-tight mt-5 md:mt-6 text-parchment text-[clamp(2.9rem,9vw,8.5rem)] wrap-break-word">
+            <h1 className="display-tight mt-5 md:mt-6 text-parchment text-[clamp(2rem,3.75vw,3.75rem)] wrap-break-word">
               <span className="block rise" style={{ animationDelay: "0.3s" }}>
                 {hero.headline[0]}
               </span>

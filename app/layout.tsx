@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Fraunces, DM_Sans } from "next/font/google";
+import { League_Spartan, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { site } from "@/content/site";
 import { Providers } from "./components/providers";
 import { ProgressBar } from "./components/progress-bar";
 
-const fraunces = Fraunces({
+const leagueSpartan = League_Spartan({
   variable: "--font-display",
   subsets: ["latin"],
-  axes: ["SOFT", "opsz"],
+  weight: ["700", "800", "900"],
   display: "swap",
 });
 
@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${dmSans.variable} h-full antialiased`}
+      className={`${leagueSpartan.variable} ${dmSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <Providers>
