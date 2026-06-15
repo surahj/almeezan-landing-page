@@ -396,7 +396,7 @@ export const site = {
 
   hero: {
     eyebrow: "Halal · Charcoal-grilled · Afghan kitchen",
-    headline: ["Smoke,", "spice,", "& Afghan soul."],
+    headline: ["SMOKE,", "SPICE,", "& AFGHAN SOUL"],
     sub: "Inspired by Afghan roots, made for Toronto. Kabobs slow-marinated overnight and lifted off live charcoal, basmati perfumed with cardamom, naan served warm — fresh and fully halal, every single day.",
     primaryCta: { label: "See the Menu", href: "#menu" },
     secondaryCta: { label: "Book Catering", href: "#catering" },

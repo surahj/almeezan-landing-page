@@ -26,7 +26,7 @@ export function Hero() {
               {hero.eyebrow}
             </p>
 
-            <h1 className="display-tight mt-5 md:mt-6 text-parchment text-[clamp(2.9rem,9vw,8.5rem)] wrap-break-word">
+            <h1 className="display-tight mt-5 md:mt-6 text-parchment text-[clamp(2rem,3.75vw,3.75rem)] wrap-break-word">
               <span className="block rise" style={{ animationDelay: "0.3s" }}>
                 {hero.headline[0]}
               </span>
@@ -92,7 +92,7 @@ export function Hero() {
       />
 
       {/* Marquee — menu highlights */}
-      <div className="relative border-y border-char/10 bg-char text-parchment overflow-hidden">
+      <div className="relative w-full border-y border-char/10 bg-char text-parchment overflow-hidden">
         <div className="flex whitespace-nowrap py-4 md:py-5 scroll-x">
           {[...hero.ticker, ...hero.ticker].map((item, i) => (
             <span
