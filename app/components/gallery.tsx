@@ -68,7 +68,7 @@ function DesktopMarquee({ slides }: { slides: readonly Slide[] }) {
 
   return (
     <div
-      className="overflow-hidden cursor-grab active:cursor-grabbing"
+      className="w-full overflow-hidden cursor-grab active:cursor-grabbing"
       onPointerEnter={() => { paused.current = true; }}
       onPointerLeave={() => { paused.current = false; }}
     >

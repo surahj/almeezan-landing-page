@@ -89,7 +89,7 @@ export function Nav() {
             </a>
 
             {/* Desktop links */}
-            <div className="hidden md:flex items-center gap-7 text-[0.82rem]">
+            <div className="hidden lg:flex items-center gap-7 text-[0.82rem]">
               {NAV_LINKS.map((link) => (
                 <m.a
                   key={link.href}
@@ -124,16 +124,18 @@ export function Nav() {
                 {site.visit.phone}
               </m.a>
 
-              {/* Hamburger — mobile only */}
-              <button
+              {/* Hamburger — below lg */}
+              <m.button
                 type="button"
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={menuOpen}
                 onClick={() => setMenuOpen((o) => !o)}
-                className="md:hidden flex items-center justify-center w-9 h-9 rounded-full text-parchment"
+                animate={{ color: scrolled || menuOpen ? "var(--parchment)" : "var(--char)" }}
+                transition={{ duration: 0.35 }}
+                className="lg:hidden flex items-center justify-center w-9 h-9 rounded-full"
               >
                 <HamburgerIcon open={menuOpen} />
-              </button>
+              </m.button>
             </div>
           </m.nav>
         </div>
